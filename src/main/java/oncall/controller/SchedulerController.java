@@ -50,12 +50,7 @@ public class SchedulerController {
     }
 
     public void print() {
-        // 일단 OutputView 말고 여기서 바로 날짜, 요일, 근무자 출력
-        for (Entry<Workday, Developer> entry : workTable.getTable().entrySet()) {
-            Workday wd = entry.getKey();
-            System.out.println(wd.getDate() + " " + wd.getWeekType() + " " + entry.getValue().getName());
-        }
-
+        OutputView.printTable(month, workTable.getTable());
     }
 
     private Entry<Integer, String> receiveValidatedMonthAndWeekType() {
