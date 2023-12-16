@@ -1,4 +1,4 @@
-package oncall.util;
+package oncall.service;
 
 public class WorkTableService {
 }
