@@ -7,7 +7,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import oncall.constant.WeekType;
 import oncall.domain.Calendar;
+import oncall.domain.Rotation;
 import oncall.service.CalendarService;
+import oncall.service.RotationService;
 import oncall.service.WorkTableService;
 import oncall.util.DateValidator;
 import oncall.util.RotationValidator;
@@ -17,20 +19,27 @@ import oncall.view.InputView;
 public class SchedulerController {
     private CalendarService calendarService;
     private WorkTableService workTableService;
+    private RotationService rotationService;
 
-    public SchedulerController(CalendarService calendarService, WorkTableService workTableService) {
+    private Calendar calendar;
+    private Rotation weekDayRotation;
+    private Rotation weekendRotation;
+
+    public SchedulerController(CalendarService calendarService, WorkTableService workTableService, RotationService rotationService) {
         this.calendarService = calendarService;
         this.workTableService = workTableService;
+        this.rotationService = rotationService;
     }
 
-    public void start() {
+    public void init() {
         Entry<Integer, String> monthAndWeekType = receiveValidatedMonthAndWeekType();
-        Calendar calendar = calendarService.createCalendar(monthAndWeekType.getKey(), WeekType.of(monthAndWeekType.getValue()));
-//        System.out.println(calendar);
-
+        calendar = calendarService.createCalendar(monthAndWeekType.getKey(), WeekType.of(monthAndWeekType.getValue()));
         List<List<String>> rotations = receiveValidatedRotations();
-//        System.out.println(rotations);
+        weekDayRotation = rotationService.createRotation(rotations.get(0));
+        weekendRotation = rotationService.createRotation(rotations.get(1));
+    }
 
+    public void schedule() {
     }
 
     private Entry<Integer, String> receiveValidatedMonthAndWeekType() {
