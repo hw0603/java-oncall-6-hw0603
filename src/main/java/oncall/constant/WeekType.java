@@ -38,6 +38,10 @@ public enum WeekType {
         return index;
     }
 
+    public boolean isWeekday() {
+        return this.index < 5;
+    }
+
     WeekType(String name, int index) {
         this.name = name;
         this.index = index;

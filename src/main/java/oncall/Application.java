@@ -14,5 +14,6 @@ public class Application {
         );
         schedulerController.init();
         schedulerController.schedule();
+        schedulerController.print();
     }
 }

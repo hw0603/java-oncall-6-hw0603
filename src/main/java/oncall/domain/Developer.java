@@ -1,9 +1,13 @@
 package oncall.domain;
 
 public class Developer {
-    private String name;
+    private final String name;
 
     public Developer(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

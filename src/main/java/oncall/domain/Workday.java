@@ -12,4 +12,20 @@ public class Workday {
         this.weekday = weekday;
         this.isHoliday = isHoliday;
     }
+
+    public boolean isWeekday() {
+        return this.weekday.isWeekday();
+    }
+
+    public boolean isHoliday() {
+        return this.isHoliday;
+    }
+
+    public int getDate() {
+        return this.date;
+    }
+
+    public String getWeekType() {
+        return this.weekday.getName();
+    }
 }

@@ -12,11 +12,19 @@ public class Rotation {
         queue.add(developer);
     }
 
-    public Developer pop() {
-        if (queue.isEmpty()) {
-            queue.addAll(buffer);
-            buffer.clear();
-        }
+    public Developer popOrig() {
         return queue.poll();
+    }
+
+    public Developer pop() {
+        if (buffer.isEmpty()) {
+            return queue.poll();
+        } else {
+            return buffer.poll();
+        }
+    }
+
+    public void bufferadd(Developer developer) {
+        buffer.add(developer);
     }
 }

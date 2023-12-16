@@ -7,7 +7,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import oncall.constant.WeekType;
 import oncall.domain.Calendar;
+import oncall.domain.Developer;
 import oncall.domain.Rotation;
+import oncall.domain.Workday;
 import oncall.service.CalendarService;
 import oncall.service.RotationService;
 import oncall.service.WorkTableService;
@@ -15,6 +17,7 @@ import oncall.util.DateValidator;
 import oncall.util.RotationValidator;
 import oncall.view.OutputView;
 import oncall.view.InputView;
+import oncall.domain.WorkTable;
 
 public class SchedulerController {
     private CalendarService calendarService;
@@ -24,6 +27,7 @@ public class SchedulerController {
     private Calendar calendar;
     private Rotation weekDayRotation;
     private Rotation weekendRotation;
+    private WorkTable workTable;
 
     public SchedulerController(CalendarService calendarService, WorkTableService workTableService, RotationService rotationService) {
         this.calendarService = calendarService;
@@ -40,6 +44,16 @@ public class SchedulerController {
     }
 
     public void schedule() {
+        workTable = workTableService.createWorkTable(calendar, weekDayRotation, weekendRotation);
+    }
+
+    public void print() {
+        // 일단 OutputView 말고 여기서 바로 날짜, 요일, 근무자 출력
+        for (Entry<Workday, Developer> entry : workTable.getTable().entrySet()) {
+            Workday wd = entry.getKey();
+            System.out.println(wd.getDate() + " " + wd.getWeekType() + " " + entry.getValue().getName());
+        }
+
     }
 
     private Entry<Integer, String> receiveValidatedMonthAndWeekType() {
