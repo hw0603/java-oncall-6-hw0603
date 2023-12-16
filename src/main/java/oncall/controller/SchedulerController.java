@@ -10,6 +10,7 @@ import oncall.domain.Calendar;
 import oncall.service.CalendarService;
 import oncall.service.WorkTableService;
 import oncall.util.DateValidator;
+import oncall.util.RotationValidator;
 import oncall.view.OutputView;
 import oncall.view.InputView;
 
@@ -28,7 +29,8 @@ public class SchedulerController {
 //        System.out.println(calendar);
 
         List<List<String>> rotations = receiveValidatedRotations();
-        System.out.println(rotations);
+//        System.out.println(rotations);
+
     }
 
     private Entry<Integer, String> receiveValidatedMonthAndWeekType() {
@@ -37,7 +39,7 @@ public class SchedulerController {
     }
 
     private List<List<String>> receiveValidatedRotations() {
-        return receiveValidatedInput(InputView::inputRotations, workTableService::validateRotations);
+        return receiveValidatedInput(InputView::inputRotations, RotationValidator::validateRotations);
     }
 
     private static <T> T receiveValidatedInput(Supplier<T> inputSupplier, Consumer<T> validator) {
