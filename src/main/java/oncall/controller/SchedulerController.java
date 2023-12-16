@@ -20,14 +20,15 @@ import oncall.view.InputView;
 import oncall.domain.WorkTable;
 
 public class SchedulerController {
-    private CalendarService calendarService;
-    private WorkTableService workTableService;
-    private RotationService rotationService;
+    private final CalendarService calendarService;
+    private final WorkTableService workTableService;
+    private final RotationService rotationService;
 
     private Calendar calendar;
     private Rotation weekDayRotation;
     private Rotation weekendRotation;
     private WorkTable workTable;
+    private int month;
 
     public SchedulerController(CalendarService calendarService, WorkTableService workTableService, RotationService rotationService) {
         this.calendarService = calendarService;
@@ -37,6 +38,7 @@ public class SchedulerController {
 
     public void init() {
         Entry<Integer, String> monthAndWeekType = receiveValidatedMonthAndWeekType();
+        month = monthAndWeekType.getKey();
         calendar = calendarService.createCalendar(monthAndWeekType.getKey(), WeekType.of(monthAndWeekType.getValue()));
         List<List<String>> rotations = receiveValidatedRotations();
         weekDayRotation = rotationService.createRotation(rotations.get(0));
