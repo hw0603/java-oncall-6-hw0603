@@ -1,5 +1,6 @@
 package oncall.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
@@ -24,12 +25,19 @@ public class SchedulerController {
     public void start() {
         Entry<Integer, String> monthAndWeekType = receiveValidatedMonthAndWeekType();
         Calendar calendar = calendarService.createCalendar(monthAndWeekType.getKey(), WeekType.of(monthAndWeekType.getValue()));
-        System.out.println(calendar);
+//        System.out.println(calendar);
+
+        List<List<String>> rotations = receiveValidatedRotations();
+        System.out.println(rotations);
     }
 
     private Entry<Integer, String> receiveValidatedMonthAndWeekType() {
         OutputView.printDateInputMessage();
         return receiveValidatedInput(InputView::inputMonthAndWeektype, DateValidator::validateDate);
+    }
+
+    private List<List<String>> receiveValidatedRotations() {
+        return receiveValidatedInput(InputView::inputRotations, workTableService::validateRotations);
     }
 
     private static <T> T receiveValidatedInput(Supplier<T> inputSupplier, Consumer<T> validator) {
