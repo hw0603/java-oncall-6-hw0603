@@ -5,6 +5,7 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import oncall.constant.WeekType;
+import oncall.domain.Calendar;
 import oncall.service.CalendarService;
 import oncall.service.WorkTableService;
 import oncall.util.DateValidator;
@@ -22,6 +23,8 @@ public class SchedulerController {
 
     public void start() {
         Entry<Integer, String> monthAndWeekType = receiveValidatedMonthAndWeekType();
+        Calendar calendar = calendarService.createCalendar(monthAndWeekType.getKey(), WeekType.of(monthAndWeekType.getValue()));
+        System.out.println(calendar);
     }
 
     private Entry<Integer, String> receiveValidatedMonthAndWeekType() {
