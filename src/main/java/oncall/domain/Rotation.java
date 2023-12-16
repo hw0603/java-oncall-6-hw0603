@@ -19,9 +19,8 @@ public class Rotation {
     public Developer pop() {
         if (buffer.isEmpty()) {
             return queue.poll();
-        } else {
-            return buffer.poll();
         }
+        return buffer.poll();
     }
 
     public void bufferadd(Developer developer) {
