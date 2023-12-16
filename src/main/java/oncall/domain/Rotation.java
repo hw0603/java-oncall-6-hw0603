@@ -25,4 +25,8 @@ public class Rotation {
     public void bufferadd(Developer developer) {
         buffer.add(developer);
     }
+
+    public void addbufferElementToQueue() {
+        queue.add(buffer.peek());
+    }
 }

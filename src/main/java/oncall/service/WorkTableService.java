@@ -28,6 +28,7 @@ public class WorkTableService {
         if (candidate.getName().equals(lastWorkerName)) {
             rotation.bufferadd(candidate);
             candidate = rotation.popOrig();
+            rotation.addbufferElementToQueue();
         }
 
         workTable.add(workday, candidate);
